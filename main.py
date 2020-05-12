@@ -7,13 +7,14 @@ from flask_cors import CORS, cross_origin
 from model.player import Player, PlayerSchema
 
 app = Flask(__name__)
+CORS(app)
+
 players = [Player("Pista", 0, 0, True), Player("Sandor", 0, 0, False)]
 
-CORS(app, resources={r"/*": {"origins": "*"}})
-app.config['CORS_HEADERS'] = 'Content-Type'
 
+@app.route('/kockapp')
+@cross_origin()
 
-@app.route('/kockapp', methods=['POST'])
 def kockapp():
     dobas()
     schema = PlayerSchema(many=True)
@@ -21,7 +22,6 @@ def kockapp():
     return jsonify(playa)
 
     # return "<br>".join([str(player) for player in players])
-    # return "Hello World!"
 
 
 def dobas():
@@ -38,19 +38,6 @@ def dobas():
                 players[(activePlayerIndex + 1) % len(players)].isActive = True
             else:
                 player.roundScore += player.roll
-
-    # if player.roll == 1:
-    #     players[activePlayerIndex].isActive = False
-    #     players[(activePlayerIndex + 1) % len(players)].isActive = True
-
-
-@app.after_request
-def after_request(response):
-    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:8080')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-    response.headers.add('Access-Control-Allow-Credentials', 'true')
-    return response
 
 
 if __name__ == '__main__':

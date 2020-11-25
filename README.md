@@ -1,6 +1,5 @@
-# readme
-## Data
-###Response sent from backend
+# Kocka project backend
+## Data - Response sent from backend
 ```json
 [{
 "playerName" : "Elso jatekos",
@@ -17,7 +16,7 @@
 "roll": 1
 }]
 ```
-###Request sent from backend
+## Data - Request sent from backend
 ```json
 {
 "command" : "dice",
@@ -28,7 +27,7 @@
 "command" : "hold",
 }
 ```
-###flask-cors
+## flask-cors
 ```python
 from flask_cors import CORS, cross_origin
 
